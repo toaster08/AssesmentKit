@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class BodyMassIndexViewController: UIViewController {
     
-    //BMI
+    //backgroundView
     @IBOutlet weak var bmiBackgroundView: UIView!
+    @IBOutlet weak var obesityIndexBackgroundView: UIView!
+    @IBOutlet weak var rohrerIndexBackgroundView: UIView!
+    //値の表示
     @IBOutlet weak var bmiOutputLabel: UILabel!
+    @IBOutlet weak var evaluationTextLabel: UILabel!
     //性別
     @IBOutlet weak var sexTypeSegmentedControl: UISegmentedControl!
     //年齢
@@ -30,20 +36,78 @@ class BodyMassIndexViewController: UIViewController {
     @IBOutlet weak var ageStackView: UIStackView!
     @IBOutlet weak var parentStackView: UIStackView!
     
+    let disposeBag = DisposeBag()
+    
+    var viewModel: BodyMassIndexViewModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        configureBinding()
+        configureAction()
         
-        navigationItem
-            .rightBarButtonItem
-        = .init(barButtonSystemItem: .action,
-                target: self,
-                action: nil)
-        
+        viewModel = BodyMassIndexViewModel(weight: weightSelectSlider.rx.value.asObservable(),
+                                           height: heightSelectSlider.rx.value.asObservable(),
+                                           sexType: sexTypeSegmentedControl.rx.value.asObservable(),
+                                           age: ageSelectPickerView.rx.itemSelected.asObservable())
+    }
+    
+    //ViewDidLayoutSubViewの意味は？
+    //ViewDidLoadに入れるとバグる
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupShadowLayer()
+    }
+    
+    private func setup() {
         ageSelectPickerView.isHidden = true
         heightSelectSlider.isHidden = true
         weightSelectSlider.isHidden = true
         
+        //初期設定
+        obesityIndexBackgroundView.isHidden = true
+        rohrerIndexBackgroundView.isHidden = true
+        
+        setupBackgroundView()
+        setupStackView()
+        setupPickerView()
+        setupNavigationBar()
+    }
+    
+    private func configureBinding() {
+        let allAges = Person.allAge.map { String($0) }
+        Observable.just(allAges)
+            .bind(to: ageSelectPickerView.rx.itemTitles) { _, str in
+                return str
+            }
+            .disposed(by: disposeBag)
+        
+        ageSelectPickerView.rx.modelSelected(String.self)
+            .map { $0.first }
+            .map { $0! + "歳" }
+            .bind(to: ageOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        heightSelectSlider.rx.value
+            .map {
+                let value = String(format: "%.1f", $0)
+                let height = value + "cm"
+                return height
+            }
+            .bind(to: heightOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        weightSelectSlider.rx.value
+            .map {
+                let value = String(format: "%.1f", $0)
+                let weight = value + "kg"
+                return weight
+            }
+            .bind(to: weightOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    private func configureAction() {
         ageInputButton
             .addAction(
                 UIAction(handler: { [self] _ in
@@ -67,35 +131,39 @@ class BodyMassIndexViewController: UIViewController {
                 }),
                 for: .touchUpInside
             )
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem
+            .rightBarButtonItems
+        = [.init(barButtonSystemItem: .action,
+                 target: self,
+                 action: nil),
+           .init(title: "All",
+                 style: .plain,
+                 target: self,
+                 action: nil)
+        ]
         
-    }
-    
-    //ViewDidLayoutSubViewの意味は？
-    //ViewDidLoadに入れるとバグる
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setupShadowLayer()
-    }
-    
-    private func setup() {
-        setupBackgroundView()
-        setupStackView()
-        setupPickerView()
+        navigationController?
+            .navigationBar
+            .prefersLargeTitles = false
     }
     
     func setupBackgroundView() {
-        bmiBackgroundView.backgroundColor = .white
-        bmiBackgroundView.layer.borderColor = UIColor.white.cgColor
-        bmiBackgroundView.layer.borderWidth = .init(1)
-        bmiBackgroundView.layer.cornerRadius = 10
+        [bmiBackgroundView,
+         obesityIndexBackgroundView,
+         rohrerIndexBackgroundView]
+            .forEach { backgroundView in
+                backgroundView?.backgroundColor = .white
+                backgroundView?.layer.borderColor = UIColor.white.cgColor
+                backgroundView?.layer.borderWidth = .init(1)
+                backgroundView?.layer.cornerRadius = 10
+            }
     }
     
     func setupPickerView() {
-        ageSelectPickerView.delegate = self
-        ageSelectPickerView.dataSource = self
-        
         ageSelectPickerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300)
-//        ageSelectPickerView.backgroundColor = UIColor(red: 0.69, green: 0.93, blue: 0.9, alpha: 1.0)
     }
     
     func setupStackView() {
@@ -117,42 +185,23 @@ class BodyMassIndexViewController: UIViewController {
                                   trailing: 20)
     }
     
+    func configureEvaluationLabel(in text: String) {
+        evaluationTextLabel.text = text
+    }
+    
     private func setupShadowLayer() {
-        bmiBackgroundView.layer.shadowPath = UIBezierPath(rect: bmiBackgroundView.bounds).cgPath
-        bmiBackgroundView.layer.shadowRadius = 5
-        bmiBackgroundView.layer.shadowColor = UIColor.lightGray.cgColor
-        bmiBackgroundView.layer.shadowOffset = .zero
-        bmiBackgroundView.layer.shadowOpacity = 0.4
+        
+        [bmiBackgroundView,
+         obesityIndexBackgroundView,
+         rohrerIndexBackgroundView]
+            .forEach { backgroundView in
+                backgroundView?.layer.shadowPath = UIBezierPath(rect: backgroundView!.bounds).cgPath
+                backgroundView?.layer.shadowRadius = 5
+                backgroundView?.layer.shadowColor = UIColor.lightGray.cgColor
+                backgroundView?.layer.shadowOffset = .zero
+                backgroundView?.layer.shadowOpacity = 0.6
+            }
+        
         //        bmiBackgroundView.layer.masksToBounds = false
-    }
-}
-
-extension BodyMassIndexViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    // UIPickerViewの列の数
-    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    // UIPickerViewの行数、リストの数
-    public func pickerView(_ pickerView: UIPickerView,
-                           numberOfRowsInComponent component: Int) -> Int {
-        return Person.allAge.count
-    }
-    
-    // UIPickerViewの最初の表示
-    public func pickerView(_ pickerView: UIPickerView,
-                           titleForRow row: Int,
-                           forComponent component: Int) -> String? {
-        
-        return  String(Person.allAge[row])
-    }
-    
-    // UIPickerViewのRowが選択された時の挙動
-    public func pickerView(_ pickerView: UIPickerView,
-                           didSelectRow row: Int,
-                           inComponent component: Int) {
-        
-        ageOutputLabel.text = String(Person.allAge[row]) + "歳"
     }
 }
