@@ -20,6 +20,15 @@ class CollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("not implemnted")
     }
+    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        layer.shadowPath = UIBezierPath(rect: contentView.bounds).cgPath
+//        layer.shadowRadius = 5
+//        layer.shadowColor = UIColor.lightGray.cgColor
+//        layer.shadowOffset = .zero
+//        layer.shadowOpacity = 0.5
+//    }
 
 }
 

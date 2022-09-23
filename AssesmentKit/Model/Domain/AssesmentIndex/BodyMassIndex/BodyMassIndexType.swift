@@ -28,31 +28,14 @@ enum BodyMassIndexType {
         }
     }
     
-    init?(bmi: Float) {
-        let group = self.classifyGroup(for: bmi)
-        self = group
-    }
-    
     init(bmi: BMI) {
-        let group = self.classifyGroup(for: bmi)
+        self = .none //これはいいの？
+        let group = self.classifyType(for: bmi)
         self = group
     }
     
-    
-    func classifyGroup(for bmi: BMI) -> Self {
+    func classifyType(for bmi: BMI) -> Self {
         switch bmi.value {
-        case 40.0...: return .obeseClassⅢ
-        case 35.0..<40.0: return .obeseClassⅡ
-        case 30.0..<35.0: return .obeseClassⅠ
-        case 25.0..<30.0: return .preObese
-        case 18.5..<25.0: return .normalRange
-        case ..<18.5: return .underweight
-        default: return .none
-        }
-    }
-    
-    func classifyGroup(for bmi: Float) -> Self {
-        switch bmi {
         case 40.0...: return .obeseClassⅢ
         case 35.0..<40.0: return .obeseClassⅡ
         case 30.0..<35.0: return .obeseClassⅠ

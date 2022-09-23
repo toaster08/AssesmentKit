@@ -24,6 +24,10 @@ class AssesmentViewController: UIViewController {
         configureCellDataSource()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+    
     func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds,
                                           collectionViewLayout: createLayout())

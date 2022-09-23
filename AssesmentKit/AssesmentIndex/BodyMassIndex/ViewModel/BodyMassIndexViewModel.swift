@@ -7,8 +7,7 @@
 
 import Foundation
 
-class BodyMassIndexViewModel {
+struct BodyMassIndexViewModel {
     
-    let 
     
 }
