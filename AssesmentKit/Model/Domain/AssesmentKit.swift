@@ -10,7 +10,8 @@ import UIKit
 
 enum AssesmentKit: Int, CaseIterable {
     case bodyMassIndex
-//    case rolerIndex
+    case rohrerIndex
+    case obesityIndex
 //    case waist_hipRatio
 //    case NPC_NRatio
 //    case weightCompensationFormula
@@ -23,7 +24,8 @@ enum AssesmentKit: Int, CaseIterable {
     var title: String {
         switch self {
         case .bodyMassIndex: return "BMI"
-//        case .rolerIndex: return "ローレル指数"
+        case .rohrerIndex: return "ローレル指数"
+        case .obesityIndex: return "肥満度"
 //        case .waist_hipRatio: return "W/H比"
 //        case .NPC_NRatio: return "NPC/N比"
 //        case .weightCompensationFormula: return "体重補正式"
@@ -40,8 +42,10 @@ enum AssesmentKit: Int, CaseIterable {
         switch self {
         case .bodyMassIndex:
             return UIColor(red: 0/255, green: 100/255, blue: 100/255, alpha: 0.7)
-//        case .rolerIndex:
-//            return UIColor(red: 0/255, green: 110/255, blue: 110/255, alpha: 0.7)
+        case .rohrerIndex:
+            return UIColor(red: 0/255, green: 110/255, blue: 110/255, alpha: 0.7)
+        case .obesityIndex:
+            return UIColor(red: 0/255, green: 120/255, blue: 120/255, alpha: 0.7)
 //        case .waist_hipRatio:
 //            return UIColor(red: 0/255, green: 120/255, blue: 120/255, alpha: 0.7)
 //        case .NPC_NRatio:

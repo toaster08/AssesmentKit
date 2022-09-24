@@ -8,22 +8,33 @@
 import Foundation
 
 extension PersonProfileService {
-    
-    func calculateObesityIndex(in person: Person) -> CalculatorResult<Float> {
-        
-        guard let age = person.age, age < 18 else { return
-            .failure
-        }
+    func calculateObesityIndex(in person: Person) -> ObesityIndex? {
+        let obesityIndex = ObesityIndex(for: person)
+        return obesityIndex
+    }
+}
 
-        let standardBodyWeight = calculateStandardBodyWeight(for: person)
+struct ObesityIndex {
+    let value: Float
+    
+    init?(for person: Person) {
+        guard person.age != nil else { return nil }
+        let standardBodyWeight = person.calculateStandardBodyWeight()
+        
         switch standardBodyWeight {
         case .success(let standardBodyWeight):
             let bodyWeight = person.weight
             let obesityIndex = (bodyWeight - standardBodyWeight) / standardBodyWeight * 100
-            return .success(obesityIndex)
+            value = obesityIndex
         case .failure: //二重でエラーを渡している
-            return .failure
+            return nil
         }
+
     }
     
+    var evaluatedType: ObesityIndexType {
+        let evaluation = ObesityIndexType(obesityIndex: self.value)
+        return evaluation
+    }
 }
+

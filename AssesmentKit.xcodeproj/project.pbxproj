@@ -11,9 +11,9 @@
 		1863225F28DCD7A300133AFF /* PersonProfileService+BMI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863225E28DCD7A300133AFF /* PersonProfileService+BMI.swift */; };
 		1863226428DCD87400133AFF /* PersonProfileService+Rohrer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863226328DCD87400133AFF /* PersonProfileService+Rohrer.swift */; };
 		1863226728DCD91700133AFF /* PersonProfileService+ObesityIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863226628DCD91700133AFF /* PersonProfileService+ObesityIndex.swift */; };
-		1863226928DD77C700133AFF /* BodyMassIndexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863226828DD77C700133AFF /* BodyMassIndexViewModel.swift */; };
+		1863226928DD77C700133AFF /* BodyEvaluationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863226828DD77C700133AFF /* BodyEvaluationViewModel.swift */; };
 		1863226C28DD788200133AFF /* PersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863226B28DD788200133AFF /* PersonDetailViewController.swift */; };
-		186C7DBF28CE521F00831C9E /* BodyMassIndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186C7DBE28CE521F00831C9E /* BodyMassIndexViewController.swift */; };
+		186C7DBF28CE521F00831C9E /* BodyEvaluationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186C7DBE28CE521F00831C9E /* BodyEvaluationViewController.swift */; };
 		188D34BD28A005C000953043 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D34BC28A005C000953043 /* AppDelegate.swift */; };
 		188D34BF28A005C000953043 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D34BE28A005C000953043 /* SceneDelegate.swift */; };
 		188D34C128A005C000953043 /* AssesmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D34C028A005C000953043 /* AssesmentViewController.swift */; };
@@ -24,8 +24,8 @@
 		188D34DE28A005C200953043 /* AssesmentKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D34DD28A005C200953043 /* AssesmentKitUITests.swift */; };
 		188D34E028A005C200953043 /* AssesmentKitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D34DF28A005C200953043 /* AssesmentKitUITestsLaunchTests.swift */; };
 		1893CFFD28ACCD31008E2486 /* BodyMassIndexType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893CFFC28ACCD31008E2486 /* BodyMassIndexType.swift */; };
-		1893CFFF28ACCD52008E2486 /* RohrerIndexClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893CFFE28ACCD52008E2486 /* RohrerIndexClass.swift */; };
-		1893D00128ACCD68008E2486 /* ObesityIndexClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893D00028ACCD68008E2486 /* ObesityIndexClass.swift */; };
+		1893CFFF28ACCD52008E2486 /* RohrerIndexType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893CFFE28ACCD52008E2486 /* RohrerIndexType.swift */; };
+		1893D00128ACCD68008E2486 /* ObesityIndexType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893D00028ACCD68008E2486 /* ObesityIndexType.swift */; };
 		1893D00328ACD112008E2486 /* PersonProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893D00228ACD111008E2486 /* PersonProfileService.swift */; };
 		1893D00628ACDD88008E2486 /* AssesmentKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893D00528ACDD88008E2486 /* AssesmentKit.swift */; };
 		18D3335328CE33550065B833 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3335228CE33550065B833 /* CollectionViewCell.swift */; };
@@ -57,9 +57,9 @@
 		1863225E28DCD7A300133AFF /* PersonProfileService+BMI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersonProfileService+BMI.swift"; sourceTree = "<group>"; };
 		1863226328DCD87400133AFF /* PersonProfileService+Rohrer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersonProfileService+Rohrer.swift"; sourceTree = "<group>"; };
 		1863226628DCD91700133AFF /* PersonProfileService+ObesityIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersonProfileService+ObesityIndex.swift"; sourceTree = "<group>"; };
-		1863226828DD77C700133AFF /* BodyMassIndexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyMassIndexViewModel.swift; sourceTree = "<group>"; };
+		1863226828DD77C700133AFF /* BodyEvaluationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyEvaluationViewModel.swift; sourceTree = "<group>"; };
 		1863226B28DD788200133AFF /* PersonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailViewController.swift; sourceTree = "<group>"; };
-		186C7DBE28CE521F00831C9E /* BodyMassIndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyMassIndexViewController.swift; sourceTree = "<group>"; };
+		186C7DBE28CE521F00831C9E /* BodyEvaluationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyEvaluationViewController.swift; sourceTree = "<group>"; };
 		188D34B928A005C000953043 /* AssesmentKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AssesmentKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		188D34BC28A005C000953043 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		188D34BE28A005C000953043 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,8 +74,8 @@
 		188D34DD28A005C200953043 /* AssesmentKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssesmentKitUITests.swift; sourceTree = "<group>"; };
 		188D34DF28A005C200953043 /* AssesmentKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssesmentKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1893CFFC28ACCD31008E2486 /* BodyMassIndexType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyMassIndexType.swift; sourceTree = "<group>"; };
-		1893CFFE28ACCD52008E2486 /* RohrerIndexClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RohrerIndexClass.swift; sourceTree = "<group>"; };
-		1893D00028ACCD68008E2486 /* ObesityIndexClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObesityIndexClass.swift; sourceTree = "<group>"; };
+		1893CFFE28ACCD52008E2486 /* RohrerIndexType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RohrerIndexType.swift; sourceTree = "<group>"; };
+		1893D00028ACCD68008E2486 /* ObesityIndexType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObesityIndexType.swift; sourceTree = "<group>"; };
 		1893D00228ACD111008E2486 /* PersonProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonProfileService.swift; sourceTree = "<group>"; };
 		1893D00528ACDD88008E2486 /* AssesmentKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssesmentKit.swift; sourceTree = "<group>"; };
 		18D3335228CE33550065B833 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 		1863225828DC965500133AFF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				1863226828DD77C700133AFF /* BodyMassIndexViewModel.swift */,
+				1863226828DD77C700133AFF /* BodyEvaluationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -164,7 +164,7 @@
 		1863225A28DCD6DF00133AFF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				186C7DBE28CE521F00831C9E /* BodyMassIndexViewController.swift */,
+				186C7DBE28CE521F00831C9E /* BodyEvaluationViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -189,7 +189,7 @@
 		1863226228DCD83800133AFF /* RohrerIndex */ = {
 			isa = PBXGroup;
 			children = (
-				1893CFFE28ACCD52008E2486 /* RohrerIndexClass.swift */,
+				1893CFFE28ACCD52008E2486 /* RohrerIndexType.swift */,
 				1863226328DCD87400133AFF /* PersonProfileService+Rohrer.swift */,
 			);
 			path = RohrerIndex;
@@ -198,7 +198,7 @@
 		1863226528DCD8CD00133AFF /* ObesityIndex */ = {
 			isa = PBXGroup;
 			children = (
-				1893D00028ACCD68008E2486 /* ObesityIndexClass.swift */,
+				1893D00028ACCD68008E2486 /* ObesityIndexType.swift */,
 				1863226628DCD91700133AFF /* PersonProfileService+ObesityIndex.swift */,
 			);
 			path = ObesityIndex;
@@ -211,6 +211,15 @@
 				1863226B28DD788200133AFF /* PersonDetailViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		1863226F28DE572D00133AFF /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				1863225728DC965000133AFF /* View */,
+				1863226A28DD786A00133AFF /* Controller */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		188D34B028A005C000953043 = {
@@ -238,9 +247,8 @@
 		188D34BB28A005C000953043 /* AssesmentKit */ = {
 			isa = PBXGroup;
 			children = (
+				1863226F28DE572D00133AFF /* Main */,
 				1863225C28DCD70B00133AFF /* AssesmentIndex */,
-				1863225728DC965000133AFF /* View */,
-				1863226A28DD786A00133AFF /* Controller */,
 				1813CBFF28ACCA290096AAE1 /* Model */,
 				188D34BE28A005C000953043 /* SceneDelegate.swift */,
 				188D34BC28A005C000953043 /* AppDelegate.swift */,
@@ -289,7 +297,6 @@
 				081CA847A0CD53CC2E9B932F /* Pods-AssesmentKitTests.debug.xcconfig */,
 				ADCFF7CFB878A452626532AE /* Pods-AssesmentKitTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -549,14 +556,14 @@
 				188D34C128A005C000953043 /* AssesmentViewController.swift in Sources */,
 				1863226C28DD788200133AFF /* PersonDetailViewController.swift in Sources */,
 				188D34BD28A005C000953043 /* AppDelegate.swift in Sources */,
-				1893CFFF28ACCD52008E2486 /* RohrerIndexClass.swift in Sources */,
-				186C7DBF28CE521F00831C9E /* BodyMassIndexViewController.swift in Sources */,
+				1893CFFF28ACCD52008E2486 /* RohrerIndexType.swift in Sources */,
+				186C7DBF28CE521F00831C9E /* BodyEvaluationViewController.swift in Sources */,
 				1863226428DCD87400133AFF /* PersonProfileService+Rohrer.swift in Sources */,
 				1893CFFD28ACCD31008E2486 /* BodyMassIndexType.swift in Sources */,
-				1863226928DD77C700133AFF /* BodyMassIndexViewModel.swift in Sources */,
+				1863226928DD77C700133AFF /* BodyEvaluationViewModel.swift in Sources */,
 				188D34BF28A005C000953043 /* SceneDelegate.swift in Sources */,
 				1893D00328ACD112008E2486 /* PersonProfileService.swift in Sources */,
-				1893D00128ACCD68008E2486 /* ObesityIndexClass.swift in Sources */,
+				1893D00128ACCD68008E2486 /* ObesityIndexType.swift in Sources */,
 				1863226728DCD91700133AFF /* PersonProfileService+ObesityIndex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

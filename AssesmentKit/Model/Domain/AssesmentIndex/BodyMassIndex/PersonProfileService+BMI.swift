@@ -23,7 +23,7 @@ extension PersonProfileService {
     }
     
     func calculateBMI(for person: Person) -> BMI? {
-        guard let bmi = BMI(for: person) else { return nil }
+        let bmi = BMI(for: person)
         return bmi
     }
     
@@ -31,17 +31,12 @@ extension PersonProfileService {
         let evaluatedType = bmi.evaluatedType
         return evaluatedType
     }
-    
 }
 
 struct BMI {
     let value: Float
-    let age: Int
     
-    init?(for person: Person) {
-        guard let age = person.age else { return nil }
-        self.age = age
-        
+    init(for person: Person) {
         value = person.weight / pow((person.height * 0.01), 2)
     }
     

@@ -26,13 +26,13 @@ enum RohrerIndexType {
         }
     }
     
-    init?(rohrerIndex: Float) {
+    init(rohrerIndex: Float) {
         self = .none
         let group = self.classifyGroup(for: rohrerIndex)
         self = group
     }
     
-    func classifyGroup(for rohrerIndex: Float) -> RohrerIndexType {
+    private func classifyGroup(for rohrerIndex: Float) -> RohrerIndexType {
         switch rohrerIndex {
         case 160...: return .overWeight
         case 145..<160: return .preOverWeight

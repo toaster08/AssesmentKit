@@ -34,7 +34,7 @@ enum BodyMassIndexType {
         self = group
     }
     
-    func classifyType(for bmi: BMI) -> Self {
+    private func classifyType(for bmi: BMI) -> Self {
         switch bmi.value {
         case 40.0...: return .obeseClassⅢ
         case 35.0..<40.0: return .obeseClassⅡ

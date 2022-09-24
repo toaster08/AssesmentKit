@@ -29,7 +29,6 @@ class CollectionViewCell: UICollectionViewCell {
 //        layer.shadowOffset = .zero
 //        layer.shadowOpacity = 0.5
 //    }
-
 }
 
 extension CollectionViewCell {

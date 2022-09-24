@@ -114,19 +114,30 @@ class AssesmentViewController: UIViewController {
 
 extension AssesmentViewController: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
 
 //        guard let item = self.dataSource.itemIdentifier(for: indexPath) as AssesmentKit else { return }
+        guard let storyboard = self.storyboard else { return }
+
         let item = AssesmentKit(rawValue: indexPath.item)
-        if item == .bodyMassIndex {
-            guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "BodyMassIndexViewController") else {
-                return
-            }
+        switch item {
+        case .bodyMassIndex:
+            let vc = storyboard.instantiateViewController(withIdentifier: "BodyEvaluationViewController") as! BodyEvaluationViewController
+            vc.currentEvalutationType = .bodyMassIndex
             navigationController?.pushViewController(vc, animated: true)
+        case .rohrerIndex:
+            let vc = storyboard.instantiateViewController(withIdentifier: "BodyEvaluationViewController") as! BodyEvaluationViewController
+            vc.currentEvalutationType = .rohrerIndex
+            navigationController?.pushViewController(vc, animated: true)
+        case .obesityIndex:
+            let vc = storyboard.instantiateViewController(withIdentifier: "BodyEvaluationViewController") as! BodyEvaluationViewController
+            vc.currentEvalutationType = .obesityIndex
+            navigationController?.pushViewController(vc, animated: true)
+        case .fromNowOn, .none:
+            return
         }
-        
-        
     }
 }
 

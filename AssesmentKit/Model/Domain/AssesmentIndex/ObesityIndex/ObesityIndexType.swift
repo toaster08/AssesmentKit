@@ -24,13 +24,13 @@ enum ObesityIndexType {
         }
     }
     
-    init?(obesityIndex: Float) {
+    init(obesityIndex: Float) {
         self = .none
         let group = self.classifyGroup(for: obesityIndex)
         self = group
     }
     
-    func classifyGroup(for obesityIndex: Float) -> ObesityIndexType {
+    private func classifyGroup(for obesityIndex: Float) -> ObesityIndexType {
         switch obesityIndex {
         case 50...: return .severeObesity
         case 30..<50: return .moderateObesity
