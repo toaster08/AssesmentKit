@@ -62,7 +62,7 @@ class BodyEvaluationViewController: UIViewController {
         setup()
         configureBinding()
         configureAction()
-        //Protocolにすることで依存性を逆転する
+        //Protocolに抽象に依存するようにする
         viewModel = BodyEvaluationViewModel(
             input: (age: ageSelectPickerView.rx.itemSelected.asObservable(),
                     sexType: sexTypeSegmentedControl.rx.value.asObservable(),
