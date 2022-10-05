@@ -149,22 +149,3 @@ extension UIColor {
         return UIColor(red: r, green: g, blue: b, alpha: 0.7)
     }
 }
-
-// グループ内のitem間のスペースを設定
-//        items.interItemSpacing = .fixed(itemSpacing)
-
-// セクション間のスペースを設定
-// 用意したグループを基にセクションを生成
-// 基本的にセルの数は意識しない、セルが入る構成(セクション)を用意しておくだけで勝手に流れてく
-//        group.interItemSpacing = .fixed(10)
-        // 生成したグループ(items)が縦に並んでいくグループを生成（実質これがセクション）
-//        let groups = NSCollectionLayoutGroup
-//            .vertical(
-//                layoutSize: NSCollectionLayoutSize(
-//                    widthDimension: .fractionalWidth(1.0),
-//                    heightDimension: .absolute(itemLength)),
-//                subitems: [items]
-//            )
-//        group.contentInsets.trailing = 10
-//        group.contentInsets.leading = 10
-        

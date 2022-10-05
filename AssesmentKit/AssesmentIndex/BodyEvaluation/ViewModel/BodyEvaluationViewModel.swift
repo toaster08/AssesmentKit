@@ -24,6 +24,9 @@ struct BodyEvaluationViewModel: Input, Output {
     let obesityIndexObservable: Observable<ObesityIndex?>
     let rohrerIndexObservable: Observable<RohrerIndex?>
     
+    let bmiText: Observable<String>
+    let bmiFormat: Observable<UIFont>
+
     init?(input: (
         age: Observable<(row: Int, component: Int)>,
         sexType: Observable<Int>,
@@ -76,7 +79,7 @@ struct BodyEvaluationViewModel: Input, Output {
                 let obesityIndex = personProfileService.calculateObesityIndex(in: person)
                 return obesityIndex
             }
-
+        
         let rohrelIndexObservable = Observable
             .combineLatest (
                 input.age,
@@ -105,5 +108,21 @@ struct BodyEvaluationViewModel: Input, Output {
         self.bmiObservable = bmiObservable
         self.obesityIndexObservable = obesityIndexObservable
         self.rohrerIndexObservable = rohrelIndexObservable
+        
+        self.bmiText = bmiObservable
+            .map({ bmi in
+                if bmi?.value != nil {
+                    return String(format: "%.1f", bmi!.value)
+                } else {
+                    return "計算不可"
+                }
+                
+            }).asObservable()
+        
+        self.bmiFormat = bmiObservable
+            .map({ bmi in
+                let size = bmi?.value != nil ? 35 : 20
+                return UIFont(name: "Helvetica", size: CGFloat(size))!
+            }).asObservable()
     }
 }

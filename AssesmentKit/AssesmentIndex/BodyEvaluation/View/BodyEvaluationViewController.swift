@@ -71,17 +71,25 @@ class BodyEvaluationViewController: UIViewController {
         )
         
         //OutputLabelへ反映するオブザーバー
-        viewModel?.bmiObservable
-            .map({ bmi in
-                guard let value = bmi?.value else {
-                    self.bmiOutputLabel.font = UIFont(name: "Helvetica", size: 20)
-                    return "計算不可"
-                }
-                
-                self.bmiOutputLabel.font = UIFont(name: "Helvetica", size: 35)
-                return String(format: "%.1f", value)
-            })
-            .subscribe(bmiOutputLabel.rx.text)
+//        viewModel?.bmiObservable
+//            .map({ bmi in
+//                guard let value = bmi?.value else {
+//                    self.bmiOutputLabel.font = UIFont(name: "Helvetica", size: 20)
+//                    return "計算不可"
+//                }
+//
+//                self.bmiOutputLabel.font = UIFont(name: "Helvetica", size: 35)
+//                return String(format: "%.1f", value)
+//            })
+//            .subscribe(bmiOutputLabel.rx.text)
+//            .disposed(by: disposeBag)
+        
+        viewModel?.bmiText
+            .bind(to: bmiOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel?.bmiFormat
+            .bind(to: bmiOutputLabel.rx.font)
             .disposed(by: disposeBag)
         
         viewModel?.obesityIndexObservable
@@ -371,8 +379,5 @@ class BodyEvaluationViewController: UIViewController {
                 backgroundView?.layer.shadowOffset = .zero
                 backgroundView?.layer.shadowOpacity = 0.6
             }
-        
-        //なんの意味がああるの？
-        //        bmiBackgroundView.layer.masksToBounds = false
     }
 }
