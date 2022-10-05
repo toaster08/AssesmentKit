@@ -26,10 +26,16 @@ struct BodyEvaluationViewModel: Input, Output {
     
     let bmiText: Observable<String>
     let bmiTextFont: Observable<UIFont>
-    
+    let bmiEvaluationText: Observable<String>
+
     let obesityIndexText: Observable<String>
-    let obesiryIndexTextFont: Observable<UIFont>
-    
+    let obesityIndexTextFont: Observable<UIFont>
+    let obesityIndexEvaluationText: Observable<String>
+
+    let rohrerIndexText: Observable<String>
+    let rohrerIndexTextFont: Observable<UIFont>
+    let rohrerIndexEvaluationText: Observable<String>
+
     init?(input: (
         age: Observable<(row: Int, component: Int)>,
         sexType: Observable<Int>,
@@ -128,6 +134,14 @@ struct BodyEvaluationViewModel: Input, Output {
                 return UIFont(name: "Helvetica", size: CGFloat(size))!
             }).asObservable()
         
+        self.bmiEvaluationText = bmiObservable
+            .map({ bmi in
+                guard  let type = bmi?.evaluatedType.description else {
+                    return ""
+                }
+                return "現在のBMIの評価は\(type)です"
+            }).asObservable()
+        
         self.obesityIndexText = obesityIndexObservable
             .map({ index in
                 if index?.value != nil {
@@ -138,10 +152,42 @@ struct BodyEvaluationViewModel: Input, Output {
                 
             }).asObservable()
         
-        self.obesiryIndexTextFont = obesityIndexObservable
+        self.obesityIndexTextFont = obesityIndexObservable
             .map({ index in
                 let size = index?.value != nil ? 35 : 20
                 return UIFont(name: "Helvetica", size: CGFloat(size))!
+            }).asObservable()
+        
+        self.obesityIndexEvaluationText = obesityIndexObservable
+            .map({ index in
+                guard  let type = index?.evaluatedType.description else {
+                    return ""
+                }
+                return "現在の肥満度の評価は\(type)です"
+            }).asObservable()
+        
+        self.rohrerIndexText = rohrelIndexObservable
+            .map({ index in
+                if index?.value != nil {
+                    return String(format: "%.f", index!.value)
+                } else {
+                    return "計算不可"
+                }
+                
+            }).asObservable()
+        
+        self.rohrerIndexTextFont = rohrelIndexObservable
+            .map({ index in
+                let size = index?.value != nil ? 35 : 20
+                return UIFont(name: "Helvetica", size: CGFloat(size))!
+            }).asObservable()
+        
+        self.rohrerIndexEvaluationText = rohrelIndexObservable
+            .map({ index in
+                guard  let type = index?.evaluatedType.description else {
+                    return ""
+                }
+                return "現在のローレル指数の評価は\(type)です"
             }).asObservable()
     }
 }

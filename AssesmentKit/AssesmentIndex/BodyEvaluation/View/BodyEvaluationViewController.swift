@@ -70,20 +70,9 @@ class BodyEvaluationViewController: UIViewController {
                     weight: weightSelectSlider.rx.value.asObservable())
         )
         
-        //OutputLabelへ反映するオブザーバー
-//        viewModel?.bmiObservable
-//            .map({ bmi in
-//                guard let value = bmi?.value else {
-//                    self.bmiOutputLabel.font = UIFont(name: "Helvetica", size: 20)
-//                    return "計算不可"
-//                }
-//
-//                self.bmiOutputLabel.font = UIFont(name: "Helvetica", size: 35)
-//                return String(format: "%.1f", value)
-//            })
-//            .subscribe(bmiOutputLabel.rx.text)
-//            .disposed(by: disposeBag)
+        //OutputLabelへ反映するバインディング
         
+        //BMI
         viewModel?.bmiText
             .bind(to: bmiOutputLabel.rx.text)
             .disposed(by: disposeBag)
@@ -92,62 +81,30 @@ class BodyEvaluationViewController: UIViewController {
             .bind(to: bmiOutputLabel.rx.font)
             .disposed(by: disposeBag)
         
-//        viewModel?.obesityIndexObservable
-//            .map({ obesityIndex in
-//                guard let value = obesityIndex?.value else {
-//                    self.obesityIndexOutputLabel.font = UIFont(name: "Helvetica", size: 20)
-//                    return "計算不可"
-//                }
-//                
-//                self.obesityIndexOutputLabel.font = UIFont(name: "Helvetica", size: 35)
-//                return String(format: "%.f", value)
-//            })
-//            .subscribe(obesityIndexOutputLabel.rx.text)
-//            .disposed(by: disposeBag)
-//        
+        viewModel?.bmiEvaluationText
+            .bind(to: bmiEvaluationLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        //ObesityIndex
         viewModel?.obesityIndexText
             .bind(to: obesityIndexOutputLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel?.obesiryIndexTextFont
+        viewModel?.obesityIndexTextFont
             .bind(to: obesityIndexOutputLabel.rx.font)
             .disposed(by: disposeBag)
         
-        viewModel?.rohrerIndexObservable
-            .map({ rohrerIndex in
-                guard let value = rohrerIndex?.value else {
-                    self.rohrerIndexOutputLabel.font = UIFont(name: "Helvetica", size: 20)
-                    return "計算不可"
-                }
-                
-                self.rohrerIndexOutputLabel.font = UIFont(name: "Helvetica", size: 35)
-                return String(format: "%.f", value)
-            })
-            .subscribe(rohrerIndexOutputLabel.rx.text)
+        viewModel?.obesityIndexEvaluationText
+            .bind(to: obesityIndexEvaluationLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel?.bmiObservable
-            .map({ bmi in
-                guard  let type = bmi?.evaluatedType.description else { return "" }
-                return "現在のBMIの評価は\(type)です"
-            })
-            .subscribe(bmiEvaluationLabel.rx.text)
+        //RohrerIndex
+        viewModel?.rohrerIndexText
+            .bind(to: rohrerIndexOutputLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel?.obesityIndexObservable
-            .map({ obesityIndex in
-                guard  let type = obesityIndex?.evaluatedType.description else { return "" }
-                return "現在の肥満度の評価は\(type)です"
-            })
-            .subscribe(obesityIndexEvaluationLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel?.rohrerIndexObservable
-            .map({ rohrerIndex in
-                guard  let type = rohrerIndex?.evaluatedType.description else { return "" }
-                return "現在のローレル指数の評価は\(type)です"
-            })
-            .subscribe(rohrerIndexEvaluationLabel.rx.text)
+        viewModel?.rohrerIndexTextFont
+            .bind(to: rohrerIndexOutputLabel.rx.font)
             .disposed(by: disposeBag)
     }
     
