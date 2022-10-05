@@ -88,21 +88,29 @@ class BodyEvaluationViewController: UIViewController {
             .bind(to: bmiOutputLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel?.bmiFormat
+        viewModel?.bmiTextFont
             .bind(to: bmiOutputLabel.rx.font)
             .disposed(by: disposeBag)
         
-        viewModel?.obesityIndexObservable
-            .map({ obesityIndex in
-                guard let value = obesityIndex?.value else {
-                    self.obesityIndexOutputLabel.font = UIFont(name: "Helvetica", size: 20)
-                    return "計算不可"
-                }
-                
-                self.obesityIndexOutputLabel.font = UIFont(name: "Helvetica", size: 35)
-                return String(format: "%.f", value)
-            })
-            .subscribe(obesityIndexOutputLabel.rx.text)
+//        viewModel?.obesityIndexObservable
+//            .map({ obesityIndex in
+//                guard let value = obesityIndex?.value else {
+//                    self.obesityIndexOutputLabel.font = UIFont(name: "Helvetica", size: 20)
+//                    return "計算不可"
+//                }
+//                
+//                self.obesityIndexOutputLabel.font = UIFont(name: "Helvetica", size: 35)
+//                return String(format: "%.f", value)
+//            })
+//            .subscribe(obesityIndexOutputLabel.rx.text)
+//            .disposed(by: disposeBag)
+//        
+        viewModel?.obesityIndexText
+            .bind(to: obesityIndexOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel?.obesiryIndexTextFont
+            .bind(to: obesityIndexOutputLabel.rx.font)
             .disposed(by: disposeBag)
         
         viewModel?.rohrerIndexObservable

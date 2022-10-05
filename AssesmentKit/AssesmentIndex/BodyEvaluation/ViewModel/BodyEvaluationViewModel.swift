@@ -25,8 +25,11 @@ struct BodyEvaluationViewModel: Input, Output {
     let rohrerIndexObservable: Observable<RohrerIndex?>
     
     let bmiText: Observable<String>
-    let bmiFormat: Observable<UIFont>
-
+    let bmiTextFont: Observable<UIFont>
+    
+    let obesityIndexText: Observable<String>
+    let obesiryIndexTextFont: Observable<UIFont>
+    
     init?(input: (
         age: Observable<(row: Int, component: Int)>,
         sexType: Observable<Int>,
@@ -34,7 +37,7 @@ struct BodyEvaluationViewModel: Input, Output {
         weight: Observable<Float>
     )) {
         let personProfileService = PersonProfileService()
-
+        
         let bmiObservable = Observable
             .combineLatest (
                 input.age,
@@ -65,7 +68,7 @@ struct BodyEvaluationViewModel: Input, Output {
                  sex: Int,
                  height: Float,
                  weight: Float) -> ObesityIndex? in
-
+                
                 //Indexの場合にどのPersonを作るか
                 guard let person = personProfileService
                         .profiledPerson(height: height,
@@ -75,7 +78,7 @@ struct BodyEvaluationViewModel: Input, Output {
                         ) else {
                             return nil
                         }
-                        
+                
                 let obesityIndex = personProfileService.calculateObesityIndex(in: person)
                 return obesityIndex
             }
@@ -90,7 +93,7 @@ struct BodyEvaluationViewModel: Input, Output {
                  sex: Int,
                  height: Float,
                  weight: Float) -> RohrerIndex? in
-
+                
                 //Indexの場合にどのPersonを作るか
                 guard let person = personProfileService
                         .profiledPerson(height: height,
@@ -100,7 +103,7 @@ struct BodyEvaluationViewModel: Input, Output {
                         ) else {
                             return nil
                         }
-                        
+                
                 let obesityIndex = personProfileService.calculateRohrerIndex(in: person)
                 return obesityIndex
             }
@@ -119,9 +122,25 @@ struct BodyEvaluationViewModel: Input, Output {
                 
             }).asObservable()
         
-        self.bmiFormat = bmiObservable
+        self.bmiTextFont = bmiObservable
             .map({ bmi in
                 let size = bmi?.value != nil ? 35 : 20
+                return UIFont(name: "Helvetica", size: CGFloat(size))!
+            }).asObservable()
+        
+        self.obesityIndexText = obesityIndexObservable
+            .map({ index in
+                if index?.value != nil {
+                    return String(format: "%.f", index!.value)
+                } else {
+                    return "計算不可"
+                }
+                
+            }).asObservable()
+        
+        self.obesiryIndexTextFont = obesityIndexObservable
+            .map({ index in
+                let size = index?.value != nil ? 35 : 20
                 return UIFont(name: "Helvetica", size: CGFloat(size))!
             }).asObservable()
     }
