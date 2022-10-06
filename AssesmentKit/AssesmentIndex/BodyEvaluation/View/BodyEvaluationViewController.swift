@@ -60,7 +60,7 @@ class BodyEvaluationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        configureBinding()
+//        configureBinding()
         configureAction()
         //Protocolに抽象に依存するようにする
         viewModel = BodyEvaluationViewModel(
@@ -70,8 +70,24 @@ class BodyEvaluationViewController: UIViewController {
                     weight: weightSelectSlider.rx.value.asObservable())
         )
         
-        //OutputLabelへ反映するバインディング
+        //初期値
+        viewModel?.ageSelectPickerViewText
+            .bind(to: ageSelectPickerView.rx.itemTitles) { _, str in return str }
+            .disposed(by: disposeBag)
         
+        viewModel?.ageSelectPickerViewItemString
+            .bind(to: ageOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel?.heightSelectSliderValueString
+            .bind(to: heightOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel?.weightSelectSliderValueString
+            .bind(to: weightOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        //OutputLabelへ反映するバインディング
         //BMI
         viewModel?.bmiText
             .bind(to: bmiOutputLabel.rx.text)
@@ -110,7 +126,6 @@ class BodyEvaluationViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         // TODO: LifeCycle
         let selectedRow = 22
         ageSelectPickerView
@@ -126,8 +141,7 @@ class BodyEvaluationViewController: UIViewController {
                 inComponent: 0)
     }
     
-    //ViewDidLayoutSubViewの意味は？
-    //ViewDidLoadに入れるとバグる
+    //TODO: ViewDidLayoutSubViewの意味は？
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupShadowLayer()
@@ -181,40 +195,6 @@ class BodyEvaluationViewController: UIViewController {
                 break
             }
         }
-    }
-    
-    private func configureBinding() {
-        
-        let allAges = Person.allAge.map { $0.description }
-        Observable.just(allAges)
-            .bind(to: ageSelectPickerView.rx.itemTitles) { _, str in
-                return str
-            }
-            .disposed(by: disposeBag)
-        
-        ageSelectPickerView.rx.modelSelected(String.self)
-            .map { $0.first }
-            .map { $0! + "歳" }
-            .bind(to: ageOutputLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        heightSelectSlider.rx.value
-            .map {
-                let value = String(format: "%.1f", $0)
-                let height = value + "cm"
-                return height
-            }
-            .bind(to: heightOutputLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        weightSelectSlider.rx.value
-            .map {
-                let value = String(format: "%.1f", $0)
-                let weight = value + "kg"
-                return weight
-            }
-            .bind(to: weightOutputLabel.rx.text)
-            .disposed(by: disposeBag)
     }
     
     private func configureAction() {
@@ -312,7 +292,6 @@ class BodyEvaluationViewController: UIViewController {
     }
     
     func setupStackView() {
-        
         ageOutputStackView
             .isLayoutMarginsRelativeArrangement = true
         ageOutputStackView
@@ -333,7 +312,6 @@ class BodyEvaluationViewController: UIViewController {
     }
     
     private func setupShadowLayer() {
-        
         [bmiBackgroundView,
          obesityIndexBackgroundView,
          rohrerIndexBackgroundView]

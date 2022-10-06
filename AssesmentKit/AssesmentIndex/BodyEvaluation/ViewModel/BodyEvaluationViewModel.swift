@@ -20,22 +20,23 @@ protocol Output {
 
 struct BodyEvaluationViewModel: Input, Output {
     
-    let bmiObservable: Observable<BMI?>
-    let obesityIndexObservable: Observable<ObesityIndex?>
-    let rohrerIndexObservable: Observable<RohrerIndex?>
-    
     let bmiText: Observable<String>
     let bmiTextFont: Observable<UIFont>
     let bmiEvaluationText: Observable<String>
-
+    
     let obesityIndexText: Observable<String>
     let obesityIndexTextFont: Observable<UIFont>
     let obesityIndexEvaluationText: Observable<String>
-
+    
     let rohrerIndexText: Observable<String>
     let rohrerIndexTextFont: Observable<UIFont>
     let rohrerIndexEvaluationText: Observable<String>
-
+    
+    let ageSelectPickerViewText: Observable<[String]>
+    let ageSelectPickerViewItemString: Observable<String>
+    let heightSelectSliderValueString: Observable<String>
+    let weightSelectSliderValueString: Observable<String>
+    
     init?(input: (
         age: Observable<(row: Int, component: Int)>,
         sexType: Observable<Int>,
@@ -114,10 +115,6 @@ struct BodyEvaluationViewModel: Input, Output {
                 return obesityIndex
             }
         
-        self.bmiObservable = bmiObservable
-        self.obesityIndexObservable = obesityIndexObservable
-        self.rohrerIndexObservable = rohrelIndexObservable
-        
         self.bmiText = bmiObservable
             .map({ bmi in
                 if bmi?.value != nil {
@@ -189,5 +186,28 @@ struct BodyEvaluationViewModel: Input, Output {
                 }
                 return "現在のローレル指数の評価は\(type)です"
             }).asObservable()
+        
+        let allAges = Person.allAge.map { $0.description }
+        self.ageSelectPickerViewText = Observable.just(allAges).asObservable()
+        
+        self.heightSelectSliderValueString = input.height
+            .map {
+                let value = String(format: "%.1f", $0)
+                let height = value + "cm"
+                return height
+            }
+            .asObservable()
+        
+        self.weightSelectSliderValueString = input.weight
+            .map {
+                let value = String(format: "%.1f", $0)
+                let weight = value + "kg"
+                return weight
+            }
+            .asObservable()
+        
+        self.ageSelectPickerViewItemString = input.age
+            .map { "\($0.row) 歳" }
+            .asObservable()
     }
 }
