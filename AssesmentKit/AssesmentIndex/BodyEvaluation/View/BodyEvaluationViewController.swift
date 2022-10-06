@@ -60,7 +60,7 @@ class BodyEvaluationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        configureBinding()
+//        configureBinding()
         configureAction()
         //Protocolに抽象に依存するようにする
         viewModel = BodyEvaluationViewModel(
@@ -70,74 +70,62 @@ class BodyEvaluationViewController: UIViewController {
                     weight: weightSelectSlider.rx.value.asObservable())
         )
         
-        //OutputLabelへ反映するオブザーバー
-        viewModel?.bmiObservable
-            .map({ bmi in
-                guard let value = bmi?.value else {
-                    self.bmiOutputLabel.font = UIFont(name: "Helvetica", size: 20)
-                    return "計算不可"
-                }
-                
-                self.bmiOutputLabel.font = UIFont(name: "Helvetica", size: 35)
-                return String(format: "%.1f", value)
-            })
-            .subscribe(bmiOutputLabel.rx.text)
+        //初期値
+        viewModel?.ageSelectPickerViewText
+            .bind(to: ageSelectPickerView.rx.itemTitles) { _, str in return str }
             .disposed(by: disposeBag)
         
-        viewModel?.obesityIndexObservable
-            .map({ obesityIndex in
-                guard let value = obesityIndex?.value else {
-                    self.obesityIndexOutputLabel.font = UIFont(name: "Helvetica", size: 20)
-                    return "計算不可"
-                }
-                
-                self.obesityIndexOutputLabel.font = UIFont(name: "Helvetica", size: 35)
-                return String(format: "%.f", value)
-            })
-            .subscribe(obesityIndexOutputLabel.rx.text)
+        viewModel?.ageSelectPickerViewItemString
+            .bind(to: ageOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel?.heightSelectSliderValueString
+            .bind(to: heightOutputLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel?.rohrerIndexObservable
-            .map({ rohrerIndex in
-                guard let value = rohrerIndex?.value else {
-                    self.rohrerIndexOutputLabel.font = UIFont(name: "Helvetica", size: 20)
-                    return "計算不可"
-                }
-                
-                self.rohrerIndexOutputLabel.font = UIFont(name: "Helvetica", size: 35)
-                return String(format: "%.f", value)
-            })
-            .subscribe(rohrerIndexOutputLabel.rx.text)
+        viewModel?.weightSelectSliderValueString
+            .bind(to: weightOutputLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel?.bmiObservable
-            .map({ bmi in
-                guard  let type = bmi?.evaluatedType.description else { return "" }
-                return "現在のBMIの評価は\(type)です"
-            })
-            .subscribe(bmiEvaluationLabel.rx.text)
+        //OutputLabelへ反映するバインディング
+        //BMI
+        viewModel?.bmiText
+            .bind(to: bmiOutputLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel?.obesityIndexObservable
-            .map({ obesityIndex in
-                guard  let type = obesityIndex?.evaluatedType.description else { return "" }
-                return "現在の肥満度の評価は\(type)です"
-            })
-            .subscribe(obesityIndexEvaluationLabel.rx.text)
+        viewModel?.bmiTextFont
+            .bind(to: bmiOutputLabel.rx.font)
             .disposed(by: disposeBag)
         
-        viewModel?.rohrerIndexObservable
-            .map({ rohrerIndex in
-                guard  let type = rohrerIndex?.evaluatedType.description else { return "" }
-                return "現在のローレル指数の評価は\(type)です"
-            })
-            .subscribe(rohrerIndexEvaluationLabel.rx.text)
+        viewModel?.bmiEvaluationText
+            .bind(to: bmiEvaluationLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        //ObesityIndex
+        viewModel?.obesityIndexText
+            .bind(to: obesityIndexOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel?.obesityIndexTextFont
+            .bind(to: obesityIndexOutputLabel.rx.font)
+            .disposed(by: disposeBag)
+        
+        viewModel?.obesityIndexEvaluationText
+            .bind(to: obesityIndexEvaluationLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        //RohrerIndex
+        viewModel?.rohrerIndexText
+            .bind(to: rohrerIndexOutputLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel?.rohrerIndexTextFont
+            .bind(to: rohrerIndexOutputLabel.rx.font)
             .disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         // TODO: LifeCycle
         let selectedRow = 22
         ageSelectPickerView
@@ -153,8 +141,7 @@ class BodyEvaluationViewController: UIViewController {
                 inComponent: 0)
     }
     
-    //ViewDidLayoutSubViewの意味は？
-    //ViewDidLoadに入れるとバグる
+    //TODO: ViewDidLayoutSubViewの意味は？
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupShadowLayer()
@@ -208,40 +195,6 @@ class BodyEvaluationViewController: UIViewController {
                 break
             }
         }
-    }
-    
-    private func configureBinding() {
-        
-        let allAges = Person.allAge.map { $0.description }
-        Observable.just(allAges)
-            .bind(to: ageSelectPickerView.rx.itemTitles) { _, str in
-                return str
-            }
-            .disposed(by: disposeBag)
-        
-        ageSelectPickerView.rx.modelSelected(String.self)
-            .map { $0.first }
-            .map { $0! + "歳" }
-            .bind(to: ageOutputLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        heightSelectSlider.rx.value
-            .map {
-                let value = String(format: "%.1f", $0)
-                let height = value + "cm"
-                return height
-            }
-            .bind(to: heightOutputLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        weightSelectSlider.rx.value
-            .map {
-                let value = String(format: "%.1f", $0)
-                let weight = value + "kg"
-                return weight
-            }
-            .bind(to: weightOutputLabel.rx.text)
-            .disposed(by: disposeBag)
     }
     
     private func configureAction() {
@@ -339,7 +292,6 @@ class BodyEvaluationViewController: UIViewController {
     }
     
     func setupStackView() {
-        
         ageOutputStackView
             .isLayoutMarginsRelativeArrangement = true
         ageOutputStackView
@@ -360,7 +312,6 @@ class BodyEvaluationViewController: UIViewController {
     }
     
     private func setupShadowLayer() {
-        
         [bmiBackgroundView,
          obesityIndexBackgroundView,
          rohrerIndexBackgroundView]
@@ -371,8 +322,5 @@ class BodyEvaluationViewController: UIViewController {
                 backgroundView?.layer.shadowOffset = .zero
                 backgroundView?.layer.shadowOpacity = 0.6
             }
-        
-        //なんの意味がああるの？
-        //        bmiBackgroundView.layer.masksToBounds = false
     }
 }

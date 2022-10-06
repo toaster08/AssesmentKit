@@ -152,13 +152,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		1863225928DCD6D500133AFF /* BodyMassIndex */ = {
+		1863225928DCD6D500133AFF /* BodyEvaluation */ = {
 			isa = PBXGroup;
 			children = (
 				1863225A28DCD6DF00133AFF /* View */,
 				1863225828DC965500133AFF /* ViewModel */,
 			);
-			path = BodyMassIndex;
+			path = BodyEvaluation;
 			sourceTree = "<group>";
 		};
 		1863225A28DCD6DF00133AFF /* View */ = {
@@ -172,7 +172,7 @@
 		1863225C28DCD70B00133AFF /* AssesmentIndex */ = {
 			isa = PBXGroup;
 			children = (
-				1863225928DCD6D500133AFF /* BodyMassIndex */,
+				1863225928DCD6D500133AFF /* BodyEvaluation */,
 			);
 			path = AssesmentIndex;
 			sourceTree = "<group>";
